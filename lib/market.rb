@@ -48,4 +48,14 @@ class Market
       end
     end.uniq.sort
   end
+
+  def overstocked_items
+    result = []
+    total_inventory.each do |item, value|
+      if value[:vendors].count > 1 && (value[:quantity].fdiv(value[:vendors].count) > 49)
+        result << item
+      end
+    end
+    result
+  end
 end
